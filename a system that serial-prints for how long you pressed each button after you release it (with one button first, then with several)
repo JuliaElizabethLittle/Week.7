@@ -1,0 +1,43 @@
+//Only workd the first time:
+
+//a system that serial-prints 
+//for how long you pressed each button 
+//after you release it (with one button first, then with several)
+
+// After that it only keeps adding on the difference, and It shouldn't, because i'm not telling it to!
+//It should always print out a difference, and I don't know why it doesn't!
+
+int button = 1;
+unsigned long startTime;
+unsigned long elapsedTime;
+int lastState;
+int currentState;
+
+void setup() {
+
+ pinMode (button, INPUT_PULLUP);
+ Serial.begin(9600);
+}
+
+void loop() {
+
+lastState = currentState;
+currentState = digitalRead (button);
+
+
+if (button == LOW){
+  Serial.println ("pressing");
+  startTime = millis()/1000;
+}
+  
+if (currentState == LOW && lastState == HIGH) {
+  Serial.println ("pressed");
+}else if (currentState == HIGH && lastState == LOW){
+  Serial.println ("released");
+  elapsedTime = millis()/1000 - startTime;
+  Serial.println ("time pressed: ");
+  Serial.println (elapsedTime);
+}
+delay(50);
+
+}
