@@ -1,0 +1,49 @@
+// Doesn't work either...But should be:
+//two buttons ("up" and "down") controlling the brightness of an slowly blinking led 
+//(with a smooth interaction)
+//Since I couldn't get that to work I tried getting two buttons to control the brightness of a led 
+//that WASN'T blinking, but again, couldn't..
+
+
+int button1;
+int button2;
+int led = 10;
+int brightness = 0;
+
+  void setup() {
+
+pinMode (button1, INPUT_PULLUP);
+pinMode (button2, INPUT_PULLUP);
+pinMode (led, OUTPUT);
+Serial.begin(9600);
+
+}
+
+  void loop() {
+
+button1 = digitalRead (1);
+button2 = digitalRead (2);
+  if (button1 == LOW){
+
+  brightness = brightness+50;
+  analogWrite (led, brightness);
+  Serial.println ("BUTTON 1 PRESSED: Brightness");
+  Serial.println (brightness);
+
+  }else if (button1 == HIGH){
+
+  Serial.println ("BUTTON 1 RELEASED"); 
+  }
+ if (button2 == HIGH) {
+
+  brightness = brightness-50;
+  analogWrite (led, brightness);
+  Serial.println ("BUTTON 2 PRESSED: Brightness");
+  Serial.println (brightness);
+ }else if (button2 == LOW){
+
+  Serial.println ("BUTTON 2 RELEASED"); 
+  }
+ 
+  delay(1000);
+}
